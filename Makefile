@@ -1,4 +1,5 @@
 NAME = fdf
+NAME_DEV = fdf_dev
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
@@ -23,11 +24,16 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) libft.a libmlx.a libftprintf.a
+dev: $(NAME_DEV)
+
+$(NAME_DEV): $(OBJ) libft.a libmlx.a libftprintf.a
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) libft.a libmlx.a -g -fsanitize=address libftprintf.a -framework OpenGL -framework AppKit
 
+$(NAME): $(OBJ) libft.a libmlx.a libftprintf.a
+	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 libft.a:
 	make -C libft
@@ -38,13 +44,13 @@ libftprintf.a:
 	cp ft_printf/libftprintf.a .
 
 libmlx.a:
-	make -C mlx
-	cp mlx/libmlx.a .
+	make -C mlx_linux
+	cp mlx_linux/libmlx.a .
 
 clean:
 	rm -f $(OBJ)
 	make -C libft clean
-	make -C mlx clean
+	make -C mlx_linux clean
 	make -C ft_printf clean
 
 fclean: clean

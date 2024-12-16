@@ -6,14 +6,14 @@
 /*   By: tcarlier <tcarlier@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 22:24:54 by tcarlier          #+#    #+#             */
-/*   Updated: 2024/12/14 17:57:56 by tcarlier         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:38:33 by tcarlier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "../mlx/mlx.h"
+# include "../mlx_linux/mlx.h"
 # include "get_next_line.h"
 # include <math.h>
 # include <stdio.h>
