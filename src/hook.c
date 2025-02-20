@@ -3,63 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcarlier <tcarlier@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tcarlier <tcarlier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:49:50 by tcarlier          #+#    #+#             */
-/*   Updated: 2024/12/15 20:29:09 by tcarlier         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:07:47 by tcarlier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	ft_exit(t_fdf *fdf)
+int	fdf_exit(t_fdf *fdf)
 {
-	int	i;
-
-	i = 0;
-	while (i < fdf->line)
+	if (fdf->mlx && fdf->win)
+		mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->img && fdf->img->img)
+		mlx_destroy_image(fdf->mlx, fdf->img->img);
+	if (fdf->mlx)
+		mlx_destroy_display(fdf->mlx);
+	if (fdf->map)
 	{
-		free(fdf->map[i]);
-		i++;
+		while (fdf->line)
+			free(fdf->map[--fdf->line]);
+		free(fdf->map);
 	}
-	free(fdf->map);
-	mlx_destroy_window(fdf->mlx, fdf->win);
-	mlx_destroy_image(fdf->mlx, fdf->img->img);
-	free(fdf->img);
+	if (fdf->img)
+		free(fdf->img);
+	if (fdf->mlx)
+		free(fdf->mlx);
 	exit(0);
-	return (0);
 }
 
 static	void	handle_offset(int keycode, t_fdf *fdf)
 {
-	if (keycode == 126)
+	if (keycode == 115)
 		fdf->offset_y += 10;
-	else if (keycode == 125)
+	else if (keycode == 119)
 		fdf->offset_y -= 10;
-	else if (keycode == 123)
+	else if (keycode == 97)
 		fdf->offset_x += 10;
-	else if (keycode == 124)
+	else if (keycode == 100)
 		fdf->offset_x -= 10;
 }
 
 static	void	handle_keycode(int keycode, t_fdf *fdf)
 {
-	if (keycode == 52)
-		ft_exit(fdf);
-	else if (keycode == 1)
+	if (keycode == 65307)
+		fdf_exit(fdf);
+	else if (keycode == 65364)
 		fdf->zoom *= 0.9;
-	else if (keycode == 12)
+	else if (keycode == 65362)
 		fdf->zoom *= 1.1;
-	if (keycode == 126 || keycode == 125 || keycode == 123 || keycode == 124)
+	if (keycode == 115 || keycode == 100 || keycode == 97 || keycode == 119)
 	{
 		handle_offset(keycode, fdf);
 		fdf->view_changed = 0;
 	}
-	if (keycode == 17)
+	if (keycode == 116)
 		fdf->view = 2;
-	if (keycode == 35)
+	if (keycode == 112)
 		fdf->view = 1;
-	if (keycode == 34)
+	if (keycode == 105)
 		fdf->view = 0;
 }
 

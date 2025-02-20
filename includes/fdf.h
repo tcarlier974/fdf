@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcarlier <tcarlier@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tcarlier <tcarlier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 22:24:54 by tcarlier          #+#    #+#             */
-/*   Updated: 2024/12/16 16:38:33 by tcarlier         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:06:45 by tcarlier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "../mlx_linux/mlx.h"
+# include "mlx.h"
 # include "get_next_line.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../libft/libft.h"
-# include "../ft_printf/ft_printf.h"
+# include "libft.h"
+# include "ft_printf.h"
 
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -106,7 +106,7 @@ void	fdf_draw_lines(t_fdf *fdf);
 void	draw_line(t_fdf *fdf, t_map p1, t_map p2);
 void	init_bresenham(t_bresenham *bres, t_map p1, t_map p2);
 int		create_gradient(t_map p1, t_map p2, int x);
-int		ft_exit(t_fdf *fdf);
+int		fdf_exit(t_fdf *fdf);
 void	fdf_draw_iso(t_fdf *fdf);
 void	fdf_draw_parallel(t_fdf *fdf);
 void	fdf_draw_top(t_fdf *fdf);
